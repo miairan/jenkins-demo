@@ -1,6 +1,11 @@
 pipeline {
     agent any
-
+    stage('Debug Env') {
+        steps {
+            sh 'which node || echo node not found'
+            sh 'which npm || echo npm not found'
+        }
+    }
     stages {
         stage('Install Dependencies') {
             steps {
