@@ -94,7 +94,7 @@ pipeline {
                     # 拷贝构建文件（注意：Jenkins 默认工作目录可能不是 root 用户）
                     sudo cp -r $BUILD_DIR/* $DEPLOY_DIR/
 
-                    echo "✅ 部署完成，ccc已更新到 $DEPLOY_DIR"
+                    echo "✅ 部署完成，已更新到 $DEPLOY_DIR"
                 '''
             }
         }
