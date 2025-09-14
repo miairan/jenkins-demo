@@ -5,6 +5,11 @@ pipeline {
         // 确保每次执行都加载 nvm 目录（jenkins 用户下安装的）
         NVM_DIR = "${env.HOME}/.nvm"
     }
+
+    options {
+        shell '/bin/bash' // 一定要加这行
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -15,6 +20,10 @@ pipeline {
         stage('Check nvm & Node.js') {
             steps {
                 sh '''
+                    echo "👉 当前用户是：$(whoami)"
+                    echo "👉 NVM_DIR=$NVM_DIR"
+                    ls -la $NVM_DIR
+
                     # 加载 nvm
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -36,30 +45,39 @@ pipeline {
             }
         }
 
-        stage('Debug Environment') {
-            steps {
-                sh 'echo $PATH'
-                sh 'which node || echo "node not found"'
-                sh 'which npm || echo "npm not found"'
-                sh 'node -v || echo "node not available"'
-                sh 'npm -v || echo "npm not available"'
-            }
-        }
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    nvm use 18.18.2
+
+                    npm install
+                '''
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'npm test'
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    nvm use 18.18.2
+
+                    npm test
+                '''
             }
         }
 
         stage('Build') {
             steps {
-                sh 'npm run build'
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+                    nvm use 18.18.2
+
+                    npm run build
+                '''
             }
         }
     }
