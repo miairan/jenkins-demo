@@ -15,23 +15,23 @@ pipeline {
         stage('Check nvm & Node.js') {
             steps {
                 sh '''
-                # 加载 nvm
-                export NVM_DIR="$HOME/.nvm"
-                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                    # 加载 nvm
+                    export NVM_DIR="$HOME/.nvm"
+                    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-                echo "🔍 可用 Node.js 版本列表："
-                nvm ls
+                    echo "🔍 可用 Node.js 版本列表："
+                    nvm ls
 
-                echo "⬇️  如果未安装则安装 Node.js 18.18.2..."
-                nvm install 18.18.2
+                    echo "⬇️  如果未安装则安装 Node.js 18.18.2..."
+                    nvm install 18.18.2
 
-                echo "✅ 使用 Node.js 18.18.2"
-                nvm use 18.18.2
+                    echo "✅ 使用 Node.js 18.18.2"
+                    nvm use 18.18.2
 
-                echo "🔎 当前 Node 版本："
-                node -v
-                echo "🔎 当前 npm 版本："
-                npm -v
+                    echo "🔎 当前 Node 版本："
+                    node -v
+                    echo "🔎 当前 npm 版本："
+                    npm -v
                 '''
             }
         }
