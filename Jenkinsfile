@@ -6,10 +6,6 @@ pipeline {
         NVM_DIR = "${env.HOME}/.nvm"
     }
 
-    options {
-        shell '/bin/bash' // 一定要加这行
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -19,7 +15,7 @@ pipeline {
         
         stage('Check nvm & Node.js') {
             steps {
-                sh '''
+                sh '''#!/bin/bash
                     echo "👉 当前用户是：$(whoami)"
                     echo "👉 NVM_DIR=$NVM_DIR"
                     ls -la $NVM_DIR
@@ -47,7 +43,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh '''
+                sh '''#!/bin/bash
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     nvm use 18.18.2
@@ -59,7 +55,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh '''
+                sh '''#!/bin/bash
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     nvm use 18.18.2
@@ -71,7 +67,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh '''
+                sh '''#!/bin/bash
                     export NVM_DIR="$HOME/.nvm"
                     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                     nvm use 18.18.2
