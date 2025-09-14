@@ -1,0 +1,11 @@
+{
+  "name": "jenkins-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo '模拟构建命令：打包 Vue 项目'",
+    "test": "echo '运行单元测试'"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
