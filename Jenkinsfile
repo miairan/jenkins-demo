@@ -1,12 +1,22 @@
 pipeline {
     agent any
-    stage('Debug Env') {
-        steps {
-            sh 'which node || echo node not found'
-            sh 'which npm || echo npm not found'
-        }
-    }
+    
     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/miairan/jenkins-demo.git'
+            }
+        }
+
+        stage('Debug Environment') {
+            steps {
+                sh 'echo $PATH'
+                sh 'which node || echo "node not found"'
+                sh 'which npm || echo "npm not found"'
+                sh 'node -v || echo "node not available"'
+                sh 'npm -v || echo "npm not available"'
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
